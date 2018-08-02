@@ -15,6 +15,14 @@ dcker build -t agbodimowo/docker_kafka .
 To stand up a container from the docker hub or from your local image
 docker run -it -d --name mykafka  -p 2181:2181 -p 9092:9092 agbodimowo/docker_kafka
 
+To create a topic in the container simply run
+
+docker exec -it $(docker ps -f "name=mykafka" |grep -w mykafka | awk '{print$1}') bash /opt/kafka_2.11-2.0.0/bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic test
+
+To list the topics created
+
+docker exec -it $(docker ps -f "name=mykafka" |grep -w mykafka | awk '{print$1}') bash /opt/kafka_2.11-2.0.0/bin/kafka-topics.sh --list --zookeeper localhost:2181
+
 Public Build
 https://registry.hub.docker.com/u/agbodimowo/docker_kafka/
 
